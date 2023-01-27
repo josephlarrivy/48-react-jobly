@@ -1,23 +1,47 @@
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+
+import NavBar from './NavBar';
+import Home from './Home'
+import ItemDisplay from './ItemDisplay';
+import Profile from './Profile';
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <NavBar />
+        <main>
+          <Routes>
+
+            <Route path='/'
+              element={<Home />}
+            />
+
+            <Route path='/companies' 
+              element={<ItemDisplay />}
+            />
+
+            <Route path='/jobs'
+              element={<ItemDisplay />}
+            />
+
+            <Route path='/profile'
+              element={<Profile />}
+            />
+
+          </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
