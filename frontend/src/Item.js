@@ -5,17 +5,16 @@ import React from "react";
 
 
 
-const Home = () => {
-
-
+const Item = () => {
 
 
 
   return (
     <>
-      <h4>Home</h4>
+      <p>Item</p>
     </>
   )
 }
 
-export default Home;
+
+export default Item;
