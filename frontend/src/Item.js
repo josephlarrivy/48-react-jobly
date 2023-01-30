@@ -5,13 +5,13 @@ import React from "react";
 
 
 
-const Item = () => {
+const Item = ({handle}) => {
 
 
 
   return (
     <>
-      <p>Item</p>
+      <p>{handle}</p>
     </>
   )
 }

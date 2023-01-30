@@ -1,49 +1,38 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes, useParams} from 'react-router-dom'
 
 import NavBar from './NavBar';
 import Home from './Home'
-import ItemDisplay from './ItemsDisplay';
+import ItemsDisplay from './ItemsDisplay';
 import Profile from './Profile';
 
-import DisplayDataContext from './DisplayDataContext'
 import './App.css';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [dataToDisplay, setDataToDisplay] = useState()
-
-
-
 
   return (
     <div className="App">
-      <DisplayDataContext.Provider value={dataToDisplay}>
-        <BrowserRouter>
-          <NavBar />
-          <main>
-            <Routes>
+      <BrowserRouter>
+        <NavBar />
+        <main>
+          <Routes>
 
-              <Route path='/'
-                element={<Home />}
-              />
+            <Route path='/'
+              element={<Home />}
+            />
 
-              <Route path='/companies' 
-                element={<ItemDisplay />}
-              />
+            <Route path='/:type' 
+              element={<ItemsDisplay />}
+            />
 
-              <Route path='/jobs'
-                element={<ItemDisplay />}
-              />
+            <Route path='/profile'
+              element={<Profile />}
+            />
 
-              <Route path='/profile'
-                element={<Profile />}
-              />
-
-            </Routes>
-          </main>
-        </BrowserRouter>
-      </DisplayDataContext.Provider>
+          </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
