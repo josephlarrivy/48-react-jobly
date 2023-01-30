@@ -58,9 +58,6 @@ const JobsByCompany = () => {
       </>
     )
 
-
-
-      
   }
 }
 

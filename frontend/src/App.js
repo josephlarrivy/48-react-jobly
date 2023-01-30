@@ -6,6 +6,7 @@ import Home from './Home'
 import ItemsDisplay from './ItemsDisplay';
 import Profile from './Profile';
 import JobsByCompany from './JobsByCompany';
+import RegisterForm from './RegisterForm';
 
 import './App.css';
 
@@ -33,6 +34,10 @@ const App = () => {
 
             <Route path='/profile'
               element={<Profile />}
+            />
+
+            <Route path='/signup'
+              element={<RegisterForm />}
             />
 
           </Routes>
