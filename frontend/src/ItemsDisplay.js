@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from 'react';
-
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
-
-import axios from 'axios';
-import JoblyApi from "./api";
+import React, { useEffect, useState, render } from 'react';
 
 import Item from './Item'
 
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 
 
-const ItemsDisplay = ({isLoading, setIsLoading}) => {
+import JoblyApi from "./api";
+
+
+
+
+const ItemsDisplay = () => {
 
   const [data, setData] = useState([]);
   const {type} = useParams();
-
+  let response;
 
   useEffect(() => {
     
     async function getData() {
       try {
         if (type === 'companies') {
-          const response = await JoblyApi.getCompanies();
+          response = await JoblyApi.getCompanies();
           console.log(response)
           setData(response)
         }
         else if (type === 'jobs') {
-          const response = await JoblyApi.getJobs();
+          response = await JoblyApi.getJobs();
           console.log(response)
           setData(response)
         }
@@ -35,23 +36,36 @@ const ItemsDisplay = ({isLoading, setIsLoading}) => {
     }
     getData();
   }, [type]);
+  
 
   if (!data) {
-    console.log('loading')
-    return (
-      <h1>Loading</h1>
-    )
-  }
-
-  console.log('loaded')
-  for (let item in data) {
-    console.log(item)
     return (
       <>
-        <Item />
+        <h1>Loading</h1>
       </>
     )
   }
+
+  // data.map(({ handle, description }) => {
+  //   // let handle = item.handle;
+  //   console.log(handle);
+  //   console.log(description);
+  //   return (
+  //     <div>
+  //       <h1>test</h1>
+  //     </div>
+  //   )
+  // })
+
+  data.map( function (x) {
+    console.log(x.handle)
+    return (
+      <div>
+        <p>{x.handle}</p>
+      </div>
+    )
+  })
+  
   
 }
 

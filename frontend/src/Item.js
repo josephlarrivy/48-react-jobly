@@ -4,14 +4,12 @@ import React from "react";
 
 
 
-
-const Item = ({handle}) => {
-
+const Item = (props) => {
 
 
   return (
     <>
-      <p>{handle}</p>
+      <h1>{props.handle}</h1>
     </>
   )
 }
