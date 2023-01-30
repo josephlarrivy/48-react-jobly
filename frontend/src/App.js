@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Home from './Home'
 import ItemsDisplay from './ItemsDisplay';
 import Profile from './Profile';
+import JobsByCompany from './JobsByCompany';
 
 import './App.css';
 
@@ -24,6 +25,10 @@ const App = () => {
 
             <Route path='/:type' 
               element={<ItemsDisplay />}
+            />
+
+            <Route path='/companies/:handle'
+              element={<JobsByCompany />}
             />
 
             <Route path='/profile'

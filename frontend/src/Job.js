@@ -1,23 +1,45 @@
 import React from "react";
+// import './Company.css'
+import { Link } from "react-router-dom";
 import './Job.css'
 
 
 
 
-const Job = ({ id, title, salary, equity, companyHandle }) => {
 
 
-    return (
-        <div className="jobCard">
-            <h4>{title}</h4>
-            <p>{companyHandle}</p>
-            <br></br>
-            <p>Salary: {salary}</p>
-            <p>Equity: {equity}</p>
-            <button>Apply</button>
-        </div>
-    )
+const Job = ({ title, salary, equity }) => {
+
+  return (
+    <div className="jobCard">
+        <h4>{title}</h4>
+        <p>Salary: {salary}</p>
+        <p>Equity: {equity}</p>
+    </div>
+  )
 }
 
 
 export default Job;
+
+
+
+
+
+
+
+
+
+// let test = [
+//   <li>one</li>,
+//   <li>two</li>
+// ]
+
+
+
+
+// return (
+//   <>
+//     <ul>{test}</ul>
+//   </>
+// )

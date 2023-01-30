@@ -1,5 +1,6 @@
 import React from "react";
 import './Company.css'
+import { Link } from "react-router-dom";
 
 
 
@@ -7,14 +8,16 @@ import './Company.css'
 
 
 
-const Company = ({ name, description }) => {
+const Company = ({ name, description, handle }) => {
 
-    return (
-        <div className="companyCard">
-            <h4>{name}</h4>
-            <p>{description}</p>
-        </div>
-    )
+  return (
+    <div className="companyCard">
+      <h4>
+        <Link to={`/companies/${handle}`}>{name}</Link>
+      </h4>
+      <p>{description}</p>
+    </div>
+  )
 }
 
 

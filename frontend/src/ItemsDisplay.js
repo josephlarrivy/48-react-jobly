@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 
 import Profile from './Profile';
 import Company from './Company';
-import Job from './Job';
+import Job from './AllJob';
 import './ItemsDisplay.css'
 
 import JoblyApi from "./api";
@@ -52,6 +52,7 @@ const ItemsDisplay = () => {
         return (
           <Company
             key={handle}
+            handle={handle}
             name={name}
             description={description}  
           />
