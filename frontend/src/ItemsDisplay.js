@@ -1,9 +1,10 @@
 import React, { useEffect, useState, render } from 'react';
-
-import Item from './Item'
-
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 
+import Profile from './Profile';
+import Company from './Company';
+import Job from './Job';
+import './ItemsDisplay.css'
 
 import JoblyApi from "./api";
 
@@ -24,6 +25,7 @@ const ItemsDisplay = () => {
           response = await JoblyApi.getCompanies();
           console.log(response)
           setData(response)
+          let company 
         }
         else if (type === 'jobs') {
           response = await JoblyApi.getJobs();
@@ -44,29 +46,35 @@ const ItemsDisplay = () => {
         <h1>Loading</h1>
       </>
     )
-  }
-
-  // data.map(({ handle, description }) => {
-  //   // let handle = item.handle;
-  //   console.log(handle);
-  //   console.log(description);
-  //   return (
-  //     <div>
-  //       <h1>test</h1>
-  //     </div>
-  //   )
-  // })
-
-  data.map( function (x) {
-    console.log(x.handle)
+  } else if (type === 'companies') {
     return (
-      <div>
-        <p>{x.handle}</p>
-      </div>
+      data.map(function ({ handle, name, description }) {
+        return (
+          <Company
+            key={handle}
+            name={name}
+            description={description}  
+          />
+        )
+      })
     )
-  })
+  } else if (type === 'jobs') {
+    return (
+      data.map(function ({ id, title, salary, equity, companyHandle }) {
+        return (
+          <Job
+            key={id}
+            title={title}
+            salary={salary}
+            equity={equity}
+            companyHandle={companyHandle}
+          />
+        )
+      })
+    )
+  }
   
-  
+
 }
 
 export default ItemsDisplay;
