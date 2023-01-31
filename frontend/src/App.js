@@ -3,15 +3,15 @@ import { BrowserRouter, Route, Routes, useParams} from 'react-router-dom'
 
 import NavBar from './NavBar';
 import Home from './Home'
-import ItemsDisplay from './ListContainer';
 import Profile from './Profile';
+import ListContainer from './ListContainer';
 import JobsByCompany from './JobsByCompany';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
 import CurrentUserContext from './CurrentUserContext'
+import JoblyApi from './api';
 import './App.css';
-import ListContainer from './ListContainer';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,16 +19,20 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState();
 
 
-  const signup = (formData) => {
-    console.log(formData)
+  const signup = async (formData) => {
+    const request = await JoblyApi.register(formData);
+    setToken(request)
+    console.log(request)
   }
 
-  const login = () => {
-
+  const login = async (formData) => {
+    const request = await JoblyApi.login(formData);
+    setToken(request)
+    console.log(request)
   }
 
   const logout = () => {
-
+    setToken('')
   }
 
   return (
@@ -52,11 +56,11 @@ const App = () => {
               />
 
               <Route path='/profile'
-                element={<Profile />}
+                element={<Profile/>}
               />
 
               <Route path='/login'
-                element={<LoginForm />}
+                element={<LoginForm login={login}/>}
               />
 
               <Route path='/signup'

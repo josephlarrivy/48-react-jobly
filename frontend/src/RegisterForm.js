@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
 
-
-
-
-
 const RegisterForm = ({ signup }) => {
 
   const INITIAL_STATE = {
