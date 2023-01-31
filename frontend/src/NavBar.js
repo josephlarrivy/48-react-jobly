@@ -11,21 +11,34 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar expand="md">
+      <Navbar>
+
         <NavLink to="/" className="navbar-brand">
           Jobly
         </NavLink>
 
         <Nav className="ml-auto" navbar>
+
           <NavItem>
             <NavLink to="/companies">Companies</NavLink>
           </NavItem>
+
           <NavItem>
             <NavLink to="/jobs">Jobs</NavLink>
           </NavItem>
+
           <NavItem>
             <NavLink to="/Profile">Profile</NavLink>
           </NavItem>
+
+          <NavItem>
+            <NavLink to="/login">Log In</NavLink>
+          </NavItem>
+
+          <NavItem>
+            <NavLink to="/signup">Register</NavLink>
+          </NavItem>
+
         </Nav>
       </Navbar>
     </>

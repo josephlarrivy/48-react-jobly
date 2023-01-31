@@ -6,6 +6,7 @@ import Home from './Home'
 import ItemsDisplay from './ListContainer';
 import Profile from './Profile';
 import JobsByCompany from './JobsByCompany';
+import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
 import CurrentUserContext from './CurrentUserContext'
@@ -18,11 +19,11 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState();
 
 
-  const login = () => {
-
+  const signup = (formData) => {
+    console.log(formData)
   }
 
-  const signup = () => {
+  const login = () => {
 
   }
 
@@ -54,8 +55,12 @@ const App = () => {
                 element={<Profile />}
               />
 
+              <Route path='/login'
+                element={<LoginForm />}
+              />
+
               <Route path='/signup'
-                element={<RegisterForm />}
+                element={<RegisterForm signup={signup}/>}
               />
 
             </Routes>
