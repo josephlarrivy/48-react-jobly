@@ -1,4 +1,6 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -61,7 +63,21 @@ class JoblyApi {
   /* log in and return token */
   static async login(data) {
     let res = await this.request(`auth/token`, data, 'POST');
+    // console.log(res)
     return res;
+  }
+
+
+
+
+  /* module to decode token */
+  static decodeToken(token) {
+    try {
+      const decodedToken = jwt_decode(token)
+      return decodedToken
+    } catch {
+      return 'invalid'
+    }
   }
   
 }

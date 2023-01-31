@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useParams} from 'react-router-dom'
 
@@ -15,28 +16,38 @@ import CurrentUserContext from './CurrentUserContext'
 import JoblyApi from './api';
 import './App.css';
 
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState();
   const [currentUser, setCurrentUser] = useState();
 
+  let decodedToken;
+  let username;
+
+  useEffect(() => {
+      const decode = () => {
+        decodedToken = JoblyApi.decodeToken(token)
+        username = decodedToken.username
+        setCurrentUser(username)
+      }
+      decode();
+      // console.log(currentUser)
+  }, [token])
+
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
-    setToken(request)
-    console.log(request)
+    setToken(request.token)
+    // console.log(request.token)
   }
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
-    setToken(request)
-    console.log(request.token)
+    setToken(request.token)
+    // console.log(request.token)
   }
 
-  // const logout = () => {
-  //   setToken('')
-  //   console.log(token)
-  // }
 
   return (
     <div className="App">
@@ -47,7 +58,7 @@ const App = () => {
             <Routes>
 
               <Route path='/'
-                element={<Home />}
+                element={<Home currentUser={currentUser}/>}
               />
 
               <Route path='/:type' 
