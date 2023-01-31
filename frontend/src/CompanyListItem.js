@@ -1,5 +1,5 @@
 import React from "react";
-import './Company.css'
+import './CompanyListItem.css'
 import { Link } from "react-router-dom";
 
 
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 
 
-const Company = ({ name, description, handle }) => {
+const CompanyListItem = ({ name, description, handle }) => {
 
   return (
     <div className="companyCard">
@@ -21,4 +21,4 @@ const Company = ({ name, description, handle }) => {
 }
 
 
-export default Company;
+export default CompanyListItem;

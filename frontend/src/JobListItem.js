@@ -4,7 +4,7 @@ import './Job.css'
 
 
 
-const Job = ({ id, title, salary, equity, companyHandle }) => {
+const JobListItem = ({ id, title, salary, equity, companyHandle }) => {
 
 
     return (
@@ -20,4 +20,4 @@ const Job = ({ id, title, salary, equity, companyHandle }) => {
 }
 
 
-export default Job;
+export default JobListItem;

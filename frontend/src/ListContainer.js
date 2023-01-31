@@ -2,16 +2,16 @@ import React, { useEffect, useState, render } from 'react';
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 
 import Profile from './Profile';
-import Company from './Company';
-import Job from './AllJob';
-import './ItemsDisplay.css'
+import CompanyListItem from './CompanyListItem';
+import JobListItem from './JobListItem';
+import './ListContainer.css'
 
 import JoblyApi from "./api";
 
 
 
 
-const ItemsDisplay = () => {
+const ListContainer = () => {
 
   const [data, setData] = useState([]);
   const {type} = useParams();
@@ -50,7 +50,7 @@ const ItemsDisplay = () => {
     return (
       data.map(function ({ handle, name, description }) {
         return (
-          <Company
+          <CompanyListItem
             key={handle}
             handle={handle}
             name={name}
@@ -63,7 +63,7 @@ const ItemsDisplay = () => {
     return (
       data.map(function ({ id, title, salary, equity, companyHandle }) {
         return (
-          <Job
+          <JobListItem
             key={id}
             title={title}
             salary={salary}
@@ -78,4 +78,4 @@ const ItemsDisplay = () => {
 
 }
 
-export default ItemsDisplay;
+export default ListContainer;
