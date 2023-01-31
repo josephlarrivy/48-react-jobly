@@ -6,8 +6,10 @@ import Home from './Home'
 import Profile from './Profile';
 import ListContainer from './ListContainer';
 import JobsByCompany from './JobsByCompany';
+
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import LogOut from './LogOut';
 
 import CurrentUserContext from './CurrentUserContext'
 import JoblyApi from './api';
@@ -28,12 +30,13 @@ const App = () => {
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
     setToken(request)
-    console.log(request)
+    console.log(request.token)
   }
 
-  const logout = () => {
-    setToken('')
-  }
+  // const logout = () => {
+  //   setToken('')
+  //   console.log(token)
+  // }
 
   return (
     <div className="App">
@@ -65,6 +68,10 @@ const App = () => {
 
               <Route path='/signup'
                 element={<RegisterForm signup={signup}/>}
+              />
+
+              <Route path='/logout'
+                element={<LogOut setToken={setToken} token={token}/>}
               />
 
             </Routes>

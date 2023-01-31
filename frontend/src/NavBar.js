@@ -39,6 +39,10 @@ const NavBar = () => {
             <NavLink to="/signup">Register</NavLink>
           </NavItem>
 
+          <NavItem>
+            <NavLink to="/logout">Log Out</NavLink>
+          </NavItem>
+
         </Nav>
       </Navbar>
     </>
