@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-
 const LoginForm = ({ login }) => {
 
   const INITIAL_STATE = {

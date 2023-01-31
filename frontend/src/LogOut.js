@@ -1,13 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import useLocalStorage from "./hooks/useLocalStorage";
 
 
 
-const LogOut = ({setToken}) => {
+const LogOut = ({setStateToken}) => {
   const navigate = useNavigate();
+  const [storeToken, removeToken, verifyToken] = useLocalStorage()
 
   useEffect(() => {
-    setToken();
+    setStateToken();
+    removeToken()
     navigate('/')
   }, [])
 

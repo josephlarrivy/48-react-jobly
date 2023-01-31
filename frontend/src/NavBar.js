@@ -43,6 +43,10 @@ const NavBar = () => {
             <NavLink to="/logout">Log Out</NavLink>
           </NavItem>
 
+          <NavItem>
+            <NavLink to="/test">test</NavLink>
+          </NavItem>
+
         </Nav>
       </Navbar>
     </>

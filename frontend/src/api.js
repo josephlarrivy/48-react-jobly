@@ -67,9 +67,6 @@ class JoblyApi {
     return res;
   }
 
-
-
-
   /* module to decode token */
   static decodeToken(token) {
     try {

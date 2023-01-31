@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = ({currentUser}) => {
   
-  console.log(currentUser)
+  // console.log(currentUser)
   
   if (currentUser) {
     return (

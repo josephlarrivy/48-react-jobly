@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useParams} from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import NavBar from './NavBar';
 import Home from './Home'
@@ -11,41 +11,45 @@ import JobsByCompany from './JobsByCompany';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import LogOut from './LogOut';
+import AuthorizedComponent from './aaaauthorizedComponentsPractice';
 
+import useLocalStorage from './hooks/useLocalStorage';
 import CurrentUserContext from './CurrentUserContext'
 import JoblyApi from './api';
 import './App.css';
 
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState();
+  const [stateToken, setStateToken] = useState();
   const [currentUser, setCurrentUser] = useState();
+  const [storeToken, removeToken, verifyToken] = useLocalStorage();
 
   let decodedToken;
   let username;
 
+
   useEffect(() => {
-      const decode = () => {
-        decodedToken = JoblyApi.decodeToken(token)
-        username = decodedToken.username
-        setCurrentUser(username)
-      }
-      decode();
+    console.log('effect ran')
+      // const decode = () => {
+      //   decodedToken = JoblyApi.decodeToken(stateToken)
+      //   username = decodedToken.username
+      //   setCurrentUser(username)
+      // }
+      // decode();
       // console.log(currentUser)
-  }, [token])
+  }, [])
 
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
-    setToken(request.token)
-    // console.log(request.token)
+    setStateToken(request.token)
+    storeToken(request.token)
   }
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
-    setToken(request.token)
-    // console.log(request.token)
+    setStateToken(request.token)
+    storeToken(request.token)
   }
 
 
@@ -70,7 +74,7 @@ const App = () => {
               />
 
               <Route path='/profile'
-                element={<Profile/>}
+                elements={<Profile/>}
               />
 
               <Route path='/login'
@@ -82,7 +86,11 @@ const App = () => {
               />
 
               <Route path='/logout'
-                element={<LogOut setToken={setToken} token={token}/>}
+                element={<LogOut setStateToken={setStateToken} stateToken={stateToken}/>}
+              />
+
+              <Route path='/test'
+                element={<AuthorizedComponent stateToken={stateToken}/>}
               />
 
             </Routes>
