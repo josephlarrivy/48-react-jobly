@@ -1,18 +1,29 @@
 import React, { useEffect } from "react";
+import { useNavigate} from "react-router-dom";
 import useLocalStorage from "./hooks/useLocalStorage";
 
 
 
-const AuthorizedComponent = ({ stateToken }) => {
+const AuthorizedComponent = () => {
 
-  const [storeToken, removeToken, verifyToken] = useLocalStorage();
+  const navigate = useNavigate()
+
+  const [storeToken, removeToken, verifyToken, authed] = useLocalStorage();
  
   useEffect(() => {
-    const compareTokens = (tokenCheck) => {
-    verifyToken(tokenCheck)
+    const doVerification = () => {
+      verifyToken()
     }
-    compareTokens(stateToken)
+    doVerification()
   }, [])
+
+  
+    return (
+      <>
+        <h1>authed</h1>
+      </>
+    )
+  
 
 
 }

@@ -3,6 +3,8 @@ import JoblyApi from "../api";
 
 const useLocalStorage = () => {
 
+  const [authed, setAuthed] = useState()
+
   const storeToken = (token) => {
     localStorage.setItem('token', token)
   }
@@ -11,18 +13,25 @@ const useLocalStorage = () => {
     localStorage.removeItem('token')
   }
 
-  const verifyToken = () => {
+  const verifyToken = async () => {
     const storedToken = localStorage.getItem('token')
-    const decodedToken = JoblyApi.decodeToken(storedToken)
+    const decodedToken = await JoblyApi.decodeToken(storedToken)
 
-    if (decodedToken === 'invalid') {
-      console.log('not verified')
+    if (decodedToken == 'invalid') {
+      console.log('invalid')
+      // console.log(decodedToken)
+      setAuthed(false)
     } else {
-      console.log('verified')
+      console.log('valid')
+      // console.log(decodedToken)
+      setAuthed(true)
     }
+
+    
   }
 
-  return [storeToken, removeToken, verifyToken];
+  // console.log(authed)
+  return [storeToken, removeToken, verifyToken, authed];
 	
 };
 

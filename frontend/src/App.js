@@ -22,14 +22,14 @@ import './App.css';
 const App = () => {
   const [stateToken, setStateToken] = useState();
   const [currentUser, setCurrentUser] = useState();
-  const [storeToken, removeToken, verifyToken] = useLocalStorage();
+  const [storeToken, removeToken, verifyToken, authed] = useLocalStorage();
 
   let decodedToken;
   let username;
 
 
   useEffect(() => {
-    console.log('effect ran')
+    // console.log('effect ran')
       // const decode = () => {
       //   decodedToken = JoblyApi.decodeToken(stateToken)
       //   username = decodedToken.username
@@ -74,7 +74,7 @@ const App = () => {
               />
 
               <Route path='/profile'
-                elements={<Profile/>}
+                element={<Profile/>}
               />
 
               <Route path='/login'
