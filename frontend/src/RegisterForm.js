@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = ({ signup }) => {
 
@@ -12,6 +12,7 @@ const RegisterForm = ({ signup }) => {
   }
 
   const [formData, setFormData] = useState(INITIAL_STATE)
+  const navigate = useNavigate();
 
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -25,6 +26,7 @@ const RegisterForm = ({ signup }) => {
     evt.preventDefault();
     signup(formData)
     setFormData(INITIAL_STATE)
+    navigate('/')
   }
 
 

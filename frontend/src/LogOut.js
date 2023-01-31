@@ -1,13 +1,16 @@
 import React, { useContext, useEffect } from "react";
-import { Navigate } from 'react-router'
-// import CurrentUserContext from "./CurrentUserContext";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const LogOut = ({setToken}) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     setToken();
+    navigate('/')
   }, [])
+
 }
 
 
