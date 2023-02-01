@@ -11,7 +11,7 @@ import JoblyApi from "./api";
 
 
 
-const ListContainer = () => {
+const ListContainer = ({submitApplication, stateToken}) => {
 
   const [data, setData] = useState([]);
   const {type} = useParams();
@@ -64,10 +64,13 @@ const ListContainer = () => {
         return (
           <JobListItem
             key={id}
+            id={id}
             title={title}
             salary={salary}
             equity={equity}
             companyHandle={companyHandle}
+            submitApplication={submitApplication}
+            stateToken={stateToken}
           />
         )
       })

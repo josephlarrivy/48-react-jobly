@@ -59,7 +59,7 @@ const App = () => {
     storeToken(request.token)
   }
 
-  const submitApplication = async (username, id) => {
+  const submitApplication = async (username, id, storeToken) => {
     const request = await JoblyApi.applyForJob(username, id);
     console.log(request)
     return request
@@ -111,7 +111,7 @@ const App = () => {
               />
 
               <Route path='/:type' 
-                element={<ListContainer />}
+                element={<ListContainer submitApplication={submitApplication}/>}
               />
 
               <Route path='/companies/:handle'
