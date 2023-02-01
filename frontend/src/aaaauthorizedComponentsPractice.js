@@ -8,11 +8,12 @@ import useLocalStorage from "./hooks/useLocalStorage";
 const AuthorizedComponent = () => {
 
 
-  const [storeToken, removeToken, verifyToken] = useLocalStorage();
+  const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
  
   const currentUser = useContext(CurrentUserContext);
 
-  console.log(currentUser)
+  let token = retrieveToken()
+  console.log(token)
   // useEffect(() => {
   //   const doVerification = () => {
   //     const username = verifyToken()

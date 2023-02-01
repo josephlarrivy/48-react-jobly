@@ -67,6 +67,13 @@ class JoblyApi {
     return res;
   }
 
+  /* get user */
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    console.log(res)
+    return res;
+  }
+
   /* module to decode token */
   static decodeToken(token) {
     try {
@@ -77,10 +84,9 @@ class JoblyApi {
     }
   }
 
-  static async applyForJob(username, data, id) {
+  static async applyForJob(username, data, id, sentToken) {
     try {
-      console.log(data)
-      res.locals.user = username
+      const headers = { Authorization: `Bearer ${JoblyApi.token}` }
       let res = await this.request(`users/${username}/jobs/${id}`, data, 'POST')
       console.log(res)
       return res
@@ -93,8 +99,6 @@ class JoblyApi {
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTk4MTU5MjU5fQ.r_lq5kl37UvczZOSo6Jt-xhGTBjYkbzxebGFMu57nO0";
 
 export default JoblyApi;

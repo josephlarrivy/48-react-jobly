@@ -11,6 +11,7 @@ import JobsByCompany from './JobsByCompany';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import LogOut from './LogOut';
+import ProfileForm from './ProfileForm';
 import AuthorizedComponent from './aaaauthorizedComponentsPractice';
 
 import useLocalStorage from './hooks/useLocalStorage';
@@ -20,7 +21,7 @@ import './App.css';
 
 
 const App = () => {
-  const [storeToken, removeToken, verifyToken] = useLocalStorage();
+  const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
   const [currentUser, setCurrentUser] = useState( async () => {
     const token = await verifyToken();
     if (token == null) {
@@ -47,6 +48,7 @@ const App = () => {
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
+    console.log(request)
     window.location.reload(true);
     const decodedToken = await verifyToken()
     storeToken(request.token)
@@ -119,7 +121,7 @@ const App = () => {
               />
 
               <Route path='/profile'
-                element={<Profile/>}
+                element={<ProfileForm />}
               />
 
               <Route path='/login'

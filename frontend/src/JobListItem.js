@@ -1,20 +1,21 @@
 import React, { useContext }from "react";
 import './Job.css'
 import CurrentUserContext from "./CurrentUserContext";
-
+import useLocalStorage from "./hooks/useLocalStorage";
 
 
 
 const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplication, stateToken}) => {
 
   const currentUser = useContext(CurrentUserContext);
+  const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
 
   const handleApply = (e) => {
     const id = e.target.parentNode.getAttribute('id')
     const data = {"user": currentUser};
+    const token = retrieveToken();
 
-
-    submitApplication(currentUser, data, id)
+    submitApplication(currentUser, data, id, token)
   }
 
 
