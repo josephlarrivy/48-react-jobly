@@ -23,7 +23,6 @@ const ListContainer = () => {
       try {
         if (type === 'companies') {
           response = await JoblyApi.getCompanies();
-          console.log(response)
           setData(response)
           let company 
         }

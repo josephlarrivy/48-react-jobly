@@ -20,38 +20,83 @@ import './App.css';
 
 
 const App = () => {
-  const [stateToken, setStateToken] = useState();
-  const [currentUser, setCurrentUser] = useState();
-  const [storeToken, removeToken, verifyToken, authed] = useLocalStorage();
-
-  let decodedToken;
-  let username;
-
+  const [storeToken, removeToken, verifyToken] = useLocalStorage();
+  const [currentUser, setCurrentUser] = useState( async () => {
+    const token = await verifyToken();
+    if (token == null) {
+      return 'unverified'
+    } else {
+      return token.username;
+    }
+  });
+  
 
   useEffect(() => {
-    // console.log('effect ran')
-      // const decode = () => {
-      //   decodedToken = JoblyApi.decodeToken(stateToken)
-      //   username = decodedToken.username
-      //   setCurrentUser(username)
-      // }
-      // decode();
-      // console.log(currentUser)
+    let decodedToken;
+    const doVerification = async () => {
+      decodedToken = await verifyToken()
+      if (decodedToken) {
+        setCurrentUser(decodedToken.username)
+      } else {
+        setCurrentUser('unverified')
+      }
+    }
+    doVerification();
   }, [])
 
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
-    setStateToken(request.token)
+    window.location.reload(true);
+    const decodedToken = await verifyToken()
     storeToken(request.token)
   }
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
-    setStateToken(request.token)
+    window.location.reload(true);
+    const decodedToken = await verifyToken()
     storeToken(request.token)
   }
 
+  const submitApplication = async (username, id) => {
+    const request = await JoblyApi.applyForJob(username, id);
+    console.log(request)
+    return request
+  }
+
+  if (currentUser == 'unverified') {
+    return (
+      <div className="App">
+        <CurrentUserContext.Provider value={currentUser}>
+          <BrowserRouter>
+            <NavBar />
+            <main>
+              <Routes>
+
+                <Route path='/'
+                  element={<Home />}
+                />
+
+                <Route path='/login'
+                  element={<LoginForm login={login} />}
+                />
+
+                <Route path='/signup'
+                  element={<RegisterForm signup={signup} />}
+                />
+
+                <Route path='/logout'
+                  element={<LogOut setCurrentUser={setCurrentUser} />}
+                />
+
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </CurrentUserContext.Provider>
+      </div>
+    )
+  }
 
   return (
     <div className="App">
@@ -62,7 +107,7 @@ const App = () => {
             <Routes>
 
               <Route path='/'
-                element={<Home currentUser={currentUser}/>}
+                element={<Home />}
               />
 
               <Route path='/:type' 
@@ -86,11 +131,11 @@ const App = () => {
               />
 
               <Route path='/logout'
-                element={<LogOut setStateToken={setStateToken} stateToken={stateToken}/>}
+                element={<LogOut setCurrentUser={setCurrentUser}/>}
               />
 
               <Route path='/test'
-                element={<AuthorizedComponent stateToken={stateToken}/>}
+                element={<AuthorizedComponent currentUser={currentUser}/>}
               />
 
             </Routes>

@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
+
+import CurrentUserContext from "./CurrentUserContext";
 
 import './NavBar.css'
 
 
 const NavBar = () => {
 
+  const currentUser = useContext(CurrentUserContext);
+
+  if (currentUser == 'unverified') {
+    return (
+      <>
+        <Navbar>
+
+          <NavLink to="/" className="navbar-brand">
+            Jobly
+          </NavLink>
+
+          <Nav className="ml-auto" navbar>
+
+            <NavItem>
+              <NavLink to="/login">Log In</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink to="/signup">Register</NavLink>
+            </NavItem>
+
+          </Nav>
+        </Navbar>
+      </>
+    )
+  }
 
 
   return (

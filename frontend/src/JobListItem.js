@@ -8,7 +8,7 @@ const JobListItem = ({ id, title, salary, equity, companyHandle }) => {
 
 
     return (
-        <div className="jobCard">
+        <div className="jobCard" id={id}>
             <h4>{title}</h4>
             <p>{companyHandle}</p>
             <br></br>

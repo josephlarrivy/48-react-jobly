@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import './CompanyListItem.css'
 import { Link } from "react-router-dom";
-
+import CurrentUserContext from "./CurrentUserContext";
 
 
 
@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 
 
 const CompanyListItem = ({ name, description, handle }) => {
+
+  const currentUser = useContext(CurrentUserContext)
 
   return (
     <div className="companyCard">

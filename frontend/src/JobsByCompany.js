@@ -50,9 +50,10 @@ const JobsByCompany = () => {
     return (
       <>
         <CompanyTitle name={name} description={description}/>
-        {companyJobs.map(function ({ title, salary, equity }) {
+        {companyJobs.map(function ({ id, title, salary, equity }) {
+          console.log(id)
           return (
-            <Job title={title} salary={salary} equity={equity}/>
+            <Job key={id} title={title} salary={salary} equity={equity}/>
           )
         })}
       </>

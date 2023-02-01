@@ -76,6 +76,17 @@ class JoblyApi {
       return 'invalid'
     }
   }
+
+  static async applyForJob(username, id) {
+    try {
+      let res = await this.request("users/:username/jobs/:id", 'POST')
+      console.log(res)
+      return res
+    } catch {
+      console.log('error')
+      return 'error'
+    }
+  }
   
 }
 
