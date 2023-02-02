@@ -28,7 +28,7 @@ const ListContainer = ({submitApplication, stateToken}) => {
         }
         else if (type === 'jobs') {
           response = await JoblyApi.getJobs();
-          console.log(response)
+          // console.log(response)
           setData(response)
         }
       } catch (err) {
@@ -51,6 +51,7 @@ const ListContainer = ({submitApplication, stateToken}) => {
         return (
           <CompanyListItem
             key={handle}
+            id={handle}
             handle={handle}
             name={name}
             description={description}  

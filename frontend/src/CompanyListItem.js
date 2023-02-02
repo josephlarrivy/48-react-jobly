@@ -8,12 +8,12 @@ import CurrentUserContext from "./CurrentUserContext";
 
 
 
-const CompanyListItem = ({ name, description, handle }) => {
+const CompanyListItem = ({ id, name, description, handle }) => {
 
   const currentUser = useContext(CurrentUserContext)
 
   return (
-    <div className="companyCard">
+    <div className="companyCard" id={id}>
       <h4>
         <Link to={`/companies/${handle}`}>{name}</Link>
       </h4>

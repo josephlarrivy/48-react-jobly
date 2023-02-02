@@ -6,16 +6,16 @@ import useLocalStorage from "./hooks/useLocalStorage";
 
 
 const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplication, stateToken}) => {
+  
 
   const currentUser = useContext(CurrentUserContext);
   const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
 
   const handleApply = (e) => {
     const id = e.target.parentNode.getAttribute('id')
-    const data = {"user": currentUser};
     const token = retrieveToken();
-
-    submitApplication(currentUser, data, id, token)
+    // console.log(currentUser, id, token)
+    submitApplication(currentUser, id, token)
   }
 
 

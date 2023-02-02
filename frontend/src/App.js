@@ -62,7 +62,7 @@ const App = () => {
   }
 
   const submitApplication = async (username, id, storeToken) => {
-    const request = await JoblyApi.applyForJob(username, id);
+    const request = await JoblyApi.applyForJob(username, id, storeToken);
     console.log(request)
     return request
   }

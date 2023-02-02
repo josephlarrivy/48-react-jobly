@@ -19,9 +19,9 @@ class JoblyApi {
 
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
-    const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
+    let url = `${BASE_URL}/${endpoint}`;
+    let headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    let params = (method === "get")
         ? data
         : {};
 
@@ -69,6 +69,7 @@ class JoblyApi {
 
   /* get user */
   static async getUser(username) {
+    
     let res = await this.request(`users/${username}`);
     console.log(res)
     return res;
@@ -84,12 +85,15 @@ class JoblyApi {
     }
   }
 
-  static async applyForJob(username, data, id, sentToken) {
+  static async applyForJob(username, id, sentToken) {
     try {
-      const headers = { Authorization: `Bearer ${JoblyApi.token}` }
-      let res = await this.request(`users/${username}/jobs/${id}`, data, 'POST')
-      console.log(res)
-      return res
+      // console.log(username, id, sentToken)
+      // let data = {};
+      // let params = {};
+      // let headers = { Authorization: `Bearer ${sentToken}` };
+      const res = await this.request(`users/${username}/jobs/${id}`, 'POST');
+      console.log(res);
+      return res;
     } catch {
       console.log('error')
       return 'error'
@@ -97,6 +101,8 @@ class JoblyApi {
   }
   
 }
+
+// url, method, data, params, headers
 
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTk4MTU5MjU5fQ.r_lq5kl37UvczZOSo6Jt-xhGTBjYkbzxebGFMu57nO0";
