@@ -18,10 +18,12 @@ import useLocalStorage from './hooks/useLocalStorage';
 import CurrentUserContext from './CurrentUserContext'
 import JoblyApi from './api';
 import './App.css';
+import useApi from './hooks/useApi';
 
 
 const App = () => {
   const [storeData, removeToken, verifyToken, retrieveToken] = useLocalStorage();
+  const [apiRequest, test] = useApi();
   const [currentUser, setCurrentUser] = useState( async () => {
     const token = await verifyToken();
     if (token == null) {
@@ -48,26 +50,22 @@ const App = () => {
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
-    console.log(request)
     window.location.reload(true);
     const decodedToken = await verifyToken()
-    storeData(request.token, request.username)
+    storeData(request.token)
   }
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
-    // window.location.reload(true);
-    const token = localStorage.getItem('token')
+    window.location.reload(true);
     const decodedToken = await verifyToken()
-    console.log(`
-      token: ${token}
-    `)
-    storeData(token)
-
+    storeData(request.token)
+    console.log(decodedToken)
   }
 
-  const submitApplication = async (username, id, storeToken) => {
-    const request = await JoblyApi.applyForJob(username, id, storeToken);
+
+  const submitApplication = async (endpoint, token, method) => {
+    const request = await apiRequest(endpoint, token, method);
     console.log(request)
     return request
   }
@@ -122,7 +120,7 @@ const App = () => {
               />
 
               <Route path='/companies/:handle'
-                element={<JobsByCompany />}
+                element={<JobsByCompany submitApplication={submitApplication}/>}
               />
 
               <Route path='/profile'

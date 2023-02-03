@@ -9,7 +9,7 @@ import CompanyTitle from './CompanyTitle';
 
 
 
-const JobsByCompany = () => {
+const JobsByCompany = ({ submitApplication }) => {
 
   const [data, setData] = useState('loading');
   const { handle } = useParams();
@@ -53,7 +53,7 @@ const JobsByCompany = () => {
         {companyJobs.map(function ({ id, title, salary, equity }) {
           console.log(id)
           return (
-            <Job key={id} title={title} salary={salary} equity={equity}/>
+            <Job key={id} title={title} salary={salary} equity={equity} submitApplication={submitApplication}/>
           )
         })}
       </>

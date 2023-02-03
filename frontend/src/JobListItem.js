@@ -14,8 +14,8 @@ const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplicati
   const handleApply = (e) => {
     const id = e.target.parentNode.getAttribute('id')
     const token = retrieveToken();
-    // console.log(currentUser, id, token)
-    submitApplication(currentUser, id, token)
+    const method = 'POST';
+    submitApplication(`users/${currentUser}/jobs/${id}`, token, method)
   }
 
 

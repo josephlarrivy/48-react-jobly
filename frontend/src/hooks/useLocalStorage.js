@@ -22,7 +22,6 @@ const useLocalStorage = () => {
     if (decodedToken == 'invalid') {
       return null;
     } else {
-      console.log(decodedToken)
       return decodedToken;
     }
   }
