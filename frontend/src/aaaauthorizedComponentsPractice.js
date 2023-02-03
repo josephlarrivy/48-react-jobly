@@ -2,43 +2,43 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate} from "react-router-dom";
 import CurrentUserContext from "./CurrentUserContext";
 import useLocalStorage from "./hooks/useLocalStorage";
-
+import useApi from "./hooks/useApi";
 
 
 const AuthorizedComponent = () => {
 
-
   const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
- 
+
+  const [request] = useApi();
+  let token;
   const currentUser = useContext(CurrentUserContext);
 
-  let token = retrieveToken()
-  console.log(token)
-  // useEffect(() => {
-  //   const doVerification = () => {
-  //     const username = verifyToken()
-  //   }
-  //   doVerification();
-  //   console.log(username)
-  // }, [])
-
-  // if (!authed) {
-  //   console.log('!authed')
-  //   return (
-  //     <>
-  //       <h1>please log in</h1>
-  //     </>
-  //   )
-  // }
+  useEffect(() => {
+    const getToken = async () => {
+      token = await retrieveToken()
+    }
+    getToken()
+  }, [])
   
-  // console.log('authed')
-  // return (
-  //   <>
-  //     <h1>authed</h1>
-  //   </>
-  // )
 
+  useEffect(() => {
 
+    const makeGetRequest = async () => {
+      const method = 'get';
+      const res = await request(`users/${currentUser}`, token, method);
+      console.log(res)
+    }
+
+    const makePostRequest = async () => {
+      const method = 'post';
+      const res = await request(`users/joseph_larrivy/jobs/141`, token, method);
+      console.log(res)
+    }
+
+    // makeGetRequest();
+    makePostRequest();
+  }, [token])
+  
 
 }
 
