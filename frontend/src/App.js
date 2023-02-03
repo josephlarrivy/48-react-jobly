@@ -21,7 +21,7 @@ import './App.css';
 
 
 const App = () => {
-  const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
+  const [storeData, removeToken, verifyToken, retrieveToken] = useLocalStorage();
   const [currentUser, setCurrentUser] = useState( async () => {
     const token = await verifyToken();
     if (token == null) {
@@ -51,14 +51,18 @@ const App = () => {
     console.log(request)
     window.location.reload(true);
     const decodedToken = await verifyToken()
-    storeToken(request.token)
+    storeData(request.token, request.username)
   }
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
     window.location.reload(true);
     const decodedToken = await verifyToken()
-    storeToken(request.token)
+    console.log(`
+      token: ${request.token}
+      user: ${request.username}
+    `)
+    storeData(request.token, request.username)
   }
 
   const submitApplication = async (username, id, storeToken) => {
