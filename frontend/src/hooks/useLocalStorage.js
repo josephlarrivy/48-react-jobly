@@ -3,9 +3,8 @@ import JoblyApi from "../api";
 
 const useLocalStorage = () => {
 
-  const storeToken = (token) => {
+  const storeData = (token) => {
     localStorage.setItem('token', token)
-    return token
   }
 
   const removeToken = () => {
@@ -23,11 +22,12 @@ const useLocalStorage = () => {
     if (decodedToken == 'invalid') {
       return null;
     } else {
+      console.log(decodedToken)
       return decodedToken;
     }
   }
 
-  return [storeToken, removeToken, verifyToken, retrieveToken];
+  return [storeData, removeToken, verifyToken, retrieveToken];
 };
 
 export default useLocalStorage;

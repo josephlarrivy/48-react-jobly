@@ -13,6 +13,8 @@ const AuthorizedComponent = () => {
   let token;
   const currentUser = useContext(CurrentUserContext);
 
+  console.log(currentUser)
+
   useEffect(() => {
     const getToken = async () => {
       token = await retrieveToken()
@@ -21,23 +23,22 @@ const AuthorizedComponent = () => {
   }, [])
   
 
-  useEffect(() => {
 
-    const makeGetRequest = async () => {
-      const method = 'get';
-      const res = await request(`users/${currentUser}`, token, method);
-      console.log(res)
-    }
 
-    const makePostRequest = async () => {
-      const method = 'post';
-      const res = await request(`users/joseph_larrivy/jobs/141`, token, method);
-      console.log(res)
-    }
+  const makeGetRequest = async () => {
+    const method = 'get';
+    const res = await request(`users/${currentUser}`, token, method);
+    console.log(res)
+  }
 
-    // makeGetRequest();
-    makePostRequest();
-  }, [token])
+  const makePostRequest = async () => {
+    const method = 'post';
+    const res = await request(`users/joseph_larrivy/jobs/141`, token, method);
+    console.log(res)
+  }
+
+  makeGetRequest();
+  // makePostRequest();
   
 
 }

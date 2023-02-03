@@ -56,13 +56,14 @@ const App = () => {
 
   const login = async (formData) => {
     const request = await JoblyApi.login(formData);
-    window.location.reload(true);
+    // window.location.reload(true);
+    const token = localStorage.getItem('token')
     const decodedToken = await verifyToken()
     console.log(`
-      token: ${request.token}
-      user: ${request.username}
+      token: ${token}
     `)
-    storeData(request.token, request.username)
+    storeData(token)
+
   }
 
   const submitApplication = async (username, id, storeToken) => {
