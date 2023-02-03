@@ -6,11 +6,8 @@ const useApi = () => {
 
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
-  let apiToken;
 
-
-
-  const request = async (endpoint, token, method) => {
+  const apiRequest = async (endpoint, token, method) => {
 
     let url = `${BASE_URL}/${endpoint}`;
 
@@ -22,9 +19,10 @@ const useApi = () => {
           },
         })
         return res.data
-      } catch (e) {
-        console.log(e)
-        return e
+      } catch (err) {
+        console.error("API Error:", err.response);
+        let message = err.response.data.error.message;
+        throw Array.isArray(message) ? message : [message];
       }
 
     } else if (method == 'post') {
@@ -34,6 +32,7 @@ const useApi = () => {
             'Authorization': `Bearer ${token}`
           },
         })
+        console.log(res)
         return res
       } catch (err) {
         console.error("API Error:", err.response);
@@ -43,7 +42,11 @@ const useApi = () => {
     }
   }
 
-  return [request]
+  const test = () => {
+    console.log('test')
+  }
+
+  return [apiRequest, test]
 }
 
 export default useApi;
