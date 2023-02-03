@@ -11,7 +11,7 @@ const useApi = () => {
 
     let url = `${BASE_URL}/${endpoint}`;
 
-    if (method == 'get') {
+    if (method == 'get' || method == 'GET') {
       try {
         const res = await axios.get(url, {
           headers: {
@@ -25,7 +25,7 @@ const useApi = () => {
         throw Array.isArray(message) ? message : [message];
       }
 
-    } else if (method == 'post') {
+    } else if (method == 'post' || method == 'POST') {
       try {
         const res = await axios.post(url, {
           headers: {

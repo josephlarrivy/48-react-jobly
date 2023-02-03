@@ -1,4 +1,5 @@
 "use strict";
+import jwt_decode from "jwt-decode";
 
 /** Convenience middleware to handle common auth cases in routes. */
 
@@ -14,6 +15,11 @@ const { UnauthorizedError } = require("../expressError");
  *
  * It's not an error if no token was provided or if the token is not valid.
  */
+function playingWithMiddleware(req, res, next) {
+  console.log('test')
+}
+
+
 
 function authenticateJWT(req, res, next) {
   try {
@@ -66,19 +72,32 @@ function ensureAdmin(req, res, next) {
  */
 
 function ensureCorrectUserOrAdmin(req, res, next) {
-  try {
-    const user = res.locals.user;
-    if (!(user && (user.isAdmin || user.username === req.params.username))) {
-      throw new UnauthorizedError();
-    }
-    return next();
-  } catch (err) {
-    return next(err);
-  }
+  // try {
+  //   const user = res.locals.user;
+  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
+  //     throw new UnauthorizedError();
+  //   }
+  //   return next();
+  // } catch (err) {
+  //   return next(err);
+  // }
+  return next()
+  // try {
+  //   const decodedToken = jwt_decode(token)
+
+  //   const user = res.locals.user;
+  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
+  //     throw new UnauthorizedError();
+  //   }
+  //   return next();
+  // } catch (err) {
+  //   return next(err);
+  // }
 }
 
 
 module.exports = {
+  playingWithMiddleware,
   authenticateJWT,
   ensureLoggedIn,
   ensureAdmin,
