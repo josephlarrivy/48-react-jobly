@@ -5,7 +5,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 
 
 
-const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplication, stateToken}) => {
+const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplication, submitApplication2, stateToken}) => {
   
 
   const currentUser = useContext(CurrentUserContext);
@@ -14,9 +14,17 @@ const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplicati
   const handleApply = (e) => {
     const id = e.target.parentNode.getAttribute('id')
     const token = retrieveToken();
+    console.log(token)
     const method = 'post';
     submitApplication(`users/${currentUser}/jobs/${id}`, token, method)
   }
+
+  // const handleApply = async (e) => {
+  //   const id = e.target.parentNode.getAttribute('id')
+  //   const decodedToken = await verifyToken()
+  //   console.log(decodedToken.username)
+  //   submitApplication2(decodedToken.username, id)
+  // }
 
 
   return (

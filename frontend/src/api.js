@@ -86,22 +86,21 @@ class JoblyApi {
 
   static async applyForJob(username, id, sentToken) {
     try {
-      // console.log(username, id, sentToken)
-      // let data = {};
-      // let params = {};
-      // let headers = { Authorization: `Bearer ${sentToken}` };
-      const res = await this.request(`users/${username}/jobs/${id}`, 'POST');
+      // let data = {'a': 'b'};
+      let params = {};
+      let headers = { Authorization: `Bearer ${sentToken}`};
+      const res = await this.request(`users/${username}/jobs/${id}`, 'post');
       console.log(res);
       return res;
-    } catch {
-      console.log('error')
-      return 'error'
+    } catch (err) {
+      console.error("API Error:", err.response);
     }
   }
   
 }
 
 // url, method, data, params, headers
+
 
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTk4MTU5MjU5fQ.r_lq5kl37UvczZOSo6Jt-xhGTBjYkbzxebGFMu57nO0";

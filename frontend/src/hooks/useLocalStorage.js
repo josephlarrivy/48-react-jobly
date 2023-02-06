@@ -13,7 +13,6 @@ const useLocalStorage = () => {
   
   const retrieveToken = () => {
     const storedToken = localStorage.getItem('token')
-    console.log(storedToken);
     return storedToken
   }
 

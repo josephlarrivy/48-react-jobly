@@ -1,5 +1,4 @@
 "use strict";
-import jwt_decode from "jwt-decode";
 
 /** Convenience middleware to handle common auth cases in routes. */
 
@@ -72,32 +71,18 @@ function ensureAdmin(req, res, next) {
  */
 
 function ensureCorrectUserOrAdmin(req, res, next) {
-  // try {
-  //   const user = res.locals.user;
-  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
-  //     throw new UnauthorizedError();
-  //   }
-  //   return next();
-  // } catch (err) {
-  //   return next(err);
-  // }
+  try {
+    const user = res.locals.user;
+    if (!(user && (user.isAdmin || user.username === req.params.username))) {
+      throw new UnauthorizedError();
+    }
+    return next();
+  } catch (err) {
+    return next(err);
+  }
 
+  // return next()
 
-  return next()
-
-
-
-  // try {
-  //   const decodedToken = jwt_decode(token)
-
-  //   const user = res.locals.user;
-  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
-  //     throw new UnauthorizedError();
-  //   }
-  //   return next();
-  // } catch (err) {
-  //   return next(err);
-  // }
 }
 
 

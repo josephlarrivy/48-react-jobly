@@ -63,9 +63,15 @@ const App = () => {
     console.log(decodedToken)
   }
 
-
   const submitApplication = async (endpoint, token, method) => {
     const request = await apiRequest(endpoint, token, method);
+    console.log(request)
+    return request
+  }
+
+  const submitApplication2 = async (username, id) => {
+    const token = await retrieveToken()
+    const request = await JoblyApi.applyForJob(username, id, token);
     console.log(request)
     return request
   }
@@ -116,11 +122,11 @@ const App = () => {
               />
 
               <Route path='/:type' 
-                element={<ListContainer submitApplication={submitApplication}/>}
+                element={<ListContainer submitApplication={submitApplication} submitApplication2={submitApplication2} />}
               />
 
               <Route path='/companies/:handle'
-                element={<JobsByCompany submitApplication={submitApplication}/>}
+                element={<JobsByCompany submitApplication={submitApplication} submitApplication2={submitApplication2} />}
               />
 
               <Route path='/profile'

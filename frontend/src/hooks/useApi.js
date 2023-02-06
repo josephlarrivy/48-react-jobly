@@ -9,6 +9,7 @@ const useApi = () => {
 
   const apiRequest = async (endpoint, token, method) => {
 
+    console.log(endpoint, token, method)
     let url = `${BASE_URL}/${endpoint}`;
 
     if (method == 'get' || method == 'GET') {
