@@ -127,7 +127,7 @@ const App = () => {
               />
 
               <Route path='/companies/:handle'
-                element={<JobsByCompany submitApplication={submitApplication} submitApplication2={submitApplication2} />}
+                element={<JobsByCompany submitApplication2={submitApplication2} />}
               />
 
               <Route path='/profile'
