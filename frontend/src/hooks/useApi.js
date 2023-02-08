@@ -29,10 +29,10 @@ const useApi = () => {
     } else if (method == 'post' || method == 'POST') {
       try {
         console.log(res.locals.user)
-        // const res = await axios.post(url, {
-        //   headers:{ 'Authorization': `Bearer ${token}` }
-        // })
-        const res = await axios.post(url)
+        const res = await axios.post(url, {
+          headers:{ 'Authorization': `Bearer ${token}` }
+        })
+        // const res = await axios.post(url)
         console.log(res)
         return res
       } catch (err) {

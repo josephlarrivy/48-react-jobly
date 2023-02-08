@@ -72,11 +72,13 @@ function ensureAdmin(req, res, next) {
 
 function ensureCorrectUserOrAdmin(req, res, next) {
   try {
-    const user = res.locals.user;
-    console.log(user)
-    if (!(user && (user.isAdmin || user.username === req.params.username))) {
-      throw new UnauthorizedError();
-    }
+    // const user = res.locals.user;
+    // console.log(user)
+    // if (!(user && (user.isAdmin || user.username === req.params.username))) {
+    //   throw new UnauthorizedError();
+    // }
+    // return next();
+    console.log(req.token)
     return next();
   } catch (err) {
     return next(err);
