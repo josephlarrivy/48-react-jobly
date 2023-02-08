@@ -9,7 +9,7 @@ const useApi = () => {
 
   const apiRequest = async (endpoint, token, method) => {
 
-    console.log(endpoint, token, method)
+    // console.log(endpoint, token, method)
     let url = `${BASE_URL}/${endpoint}`;
 
     if (method == 'get' || method == 'GET') {
@@ -28,17 +28,17 @@ const useApi = () => {
 
     } else if (method == 'post' || method == 'POST') {
       try {
-        const res = await axios.post(url, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-        })
+        console.log(res.locals.user)
+        // const res = await axios.post(url, {
+        //   headers:{ 'Authorization': `Bearer ${token}` }
+        // })
+        const res = await axios.post(url)
         console.log(res)
         return res
       } catch (err) {
         console.error("API Error:", err.response);
-        let message = err.response.data.error.message;
-        throw Array.isArray(message) ? message : [message];
+        // let message = err.response.data.error.message;
+        // throw Array.isArray(message) ? message : [message];
       }
     }
   }

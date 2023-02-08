@@ -64,6 +64,7 @@ const App = () => {
   }
 
   const submitApplication = async (endpoint, token, method) => {
+    // console.log(endpoint, token)
     const request = await apiRequest(endpoint, token, method);
     console.log(request)
     return request
