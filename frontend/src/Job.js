@@ -1,17 +1,19 @@
 import React from "react";
 import './Job.css'
 import useLocalStorage from "./hooks/useLocalStorage";
-
+import useToggle from "./hooks/useToggle";
 
 const Job = ({ id, title, salary, equity, submitApplication2 }) => {
 
   const [storeToken, removeToken, verifyToken, retrieveToken] = useLocalStorage();
+  const [applied, setApplied] = useToggle(false)
 
   const handleApply = async (e) => {
     const id = e.target.parentNode.getAttribute('id')
-    console.log(id)
+    // console.log(id)
     const decodedToken = await verifyToken()
-    console.log(decodedToken.username)
+    // console.log(decodedToken.username)
+    setApplied(true)
     submitApplication2(decodedToken.username, id)
   }
 
@@ -21,7 +23,9 @@ const Job = ({ id, title, salary, equity, submitApplication2 }) => {
       <h4>{title}</h4>
       <p>Salary: {salary}</p>
       <p>Equity: {equity}</p>
-      <button onClick={handleApply}>Apply</button>
+      <button onClick={handleApply}>
+        {applied ? 'Applied' : 'Apply'}
+      </button>
     </div>
   )
 }

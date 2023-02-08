@@ -32,7 +32,6 @@ const JobsByCompany = ({ submitApplication2 }) => {
 
 
   if (data === 'loading') {
-    console.log('propmise')
     return (
       <>
         <h1>Loading</h1>
@@ -51,7 +50,6 @@ const JobsByCompany = ({ submitApplication2 }) => {
       <>
         <CompanyTitle name={name} description={description}/>
         {companyJobs.map(function ({ id, title, salary, equity }) {
-          console.log(id)
           return (
             <Job key={id} id={id} title={title} salary={salary} equity={equity} submitApplication2={submitApplication2}/>
           )
