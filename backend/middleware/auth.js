@@ -27,6 +27,7 @@ function authenticateJWT(req, res, next) {
       const token = authHeader.replace(/^[Bb]earer /, "").trim();
       res.locals.user = jwt.verify(token, SECRET_KEY);
     }
+    console.log('checkpoint')
     return next();
   } catch (err) {
     return next();
@@ -71,23 +72,24 @@ function ensureAdmin(req, res, next) {
  */
 
 function ensureCorrectUserOrAdmin(req, res, next) {
-  // try {
-  //   const user = res.locals.user;
-  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
-  //     throw new UnauthorizedError();
-  //   }
-  //   return next();
-  // } catch (err) {
-  //   return next(err);
-  // }
   try {
-    if ((req.params.username) !== res.locals.user) {
+    authenticateJWT
+    const user = res.locals.user;
+    if (!(user && (user.isAdmin || user.username === req.params.username))) {
       throw new UnauthorizedError();
     }
     return next();
   } catch (err) {
     return next(err);
   }
+  // try {
+  //   if ((req.params.username) !== res.locals.user) {
+  //     throw new UnauthorizedError();
+  //   }
+  //   return next();
+  // } catch (err) {
+  //   return next(err);
+  // }
 }
 
 
