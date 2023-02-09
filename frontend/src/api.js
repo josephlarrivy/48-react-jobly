@@ -87,7 +87,8 @@ class JoblyApi {
   static async applyForJob(username, id, sentToken) {
     try {
       let data = {'a': 'b'};
-      let params = {};
+      let params = {username};
+      console.log('params:', params)
       let method = 'post'
       let headers = { Authorization: `Bearer ${sentToken}`};
       const res = await this.request(`users/${username}/jobs/${id}`, data, method);
