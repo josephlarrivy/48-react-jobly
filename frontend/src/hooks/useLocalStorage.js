@@ -30,10 +30,3 @@ const useLocalStorage = () => {
 };
 
 export default useLocalStorage;
-
-
-
-
-// verify what's happenning in middleware using insomnia requests
-// make sure what the React part of app is sending is the same as what is working in insomnia requests
-// email Christos when i get things working
