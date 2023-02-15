@@ -97,7 +97,7 @@ class JoblyApi {
         }
       }
       let headers = { Authorization: `Bearer ${sentToken}`};
-      const res = await axios.post(`${BASE_URL}/users/${username}/jobs/${id}`, data, headers);
+      const res = await axios.post(`${BASE_URL}/users/${username}/jobs/${id}`, data, headers );
       console.log(res);
       return res;
     } catch (err) {

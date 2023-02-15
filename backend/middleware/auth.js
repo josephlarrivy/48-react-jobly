@@ -5,6 +5,7 @@
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
 const { UnauthorizedError } = require("../expressError");
+const { head } = require("../routes/users");
 
 
 /** Middleware: Authenticate user.
@@ -84,7 +85,8 @@ function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     let paramsUsername = req.params.username
     let authHeader = req.headers.authorization
-    console.log('authHeader', authHeader)
+    let headers = req.headers
+    console.log('headers', headers)
     const token = authHeader.replace(/^[Bb]earer /, "").trim();
     let decodedToken = jwt.verify(token, SECRET_KEY);
     let tokenUsername = decodedToken.username
