@@ -24,12 +24,14 @@ import useApi from './hooks/useApi';
 const App = () => {
   const [storeData, removeToken, verifyToken, retrieveToken] = useLocalStorage();
   const [apiRequest, test] = useApi();
+  const [token, setToken] = useState(false);
   const [currentUser, setCurrentUser] = useState( async () => {
-    const token = await verifyToken();
+    const storedToken = await retrieveToken();
     if (token == null) {
       return 'unverified'
     } else {
-      return token.username;
+      setToken(storedToken)
+      return storedToken;
     }
   });
   
@@ -50,6 +52,7 @@ const App = () => {
 
   const signup = async (formData) => {
     const request = await JoblyApi.register(formData);
+    setToken(request.token)
     window.location.reload(true);
     const decodedToken = await verifyToken()
     storeData(request.token)
@@ -60,7 +63,8 @@ const App = () => {
     window.location.reload(true);
     const decodedToken = await verifyToken()
     storeData(request.token)
-    console.log(decodedToken)
+    setToken(request.token.token)
+    console.log(token)
   }
 
   const submitApplication = async (endpoint, token, method) => {
@@ -77,7 +81,7 @@ const App = () => {
     return request
   }
 
-  if (currentUser == 'unverified') {
+  if (token == false) {
     return (
       <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
@@ -108,54 +112,56 @@ const App = () => {
         </CurrentUserContext.Provider>
       </div>
     )
+  } else {
+    return (
+      <div className="App">
+        <CurrentUserContext.Provider value={currentUser}>
+          <BrowserRouter>
+            <NavBar />
+            <main>
+              <Routes>
+
+                <Route path='/'
+                  element={<Home />}
+                />
+
+                <Route path='/:type'
+                  element={<ListContainer submitApplication={submitApplication} submitApplication2={submitApplication2} />}
+                />
+
+                <Route path='/companies/:handle'
+                  element={<JobsByCompany submitApplication2={submitApplication2} />}
+                />
+
+                <Route path='/profile'
+                  element={<ProfileForm />}
+                />
+
+                <Route path='/login'
+                  element={<LoginForm login={login} />}
+                />
+
+                <Route path='/signup'
+                  element={<RegisterForm signup={signup} />}
+                />
+
+                <Route path='/logout'
+                  element={<LogOut setCurrentUser={setCurrentUser} />}
+                />
+
+                <Route path='/test'
+                  element={<AuthorizedComponent currentUser={currentUser} />}
+                />
+
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </CurrentUserContext.Provider>
+      </div>
+    );
   }
 
-  return (
-    <div className="App">
-      <CurrentUserContext.Provider value={currentUser}>
-        <BrowserRouter>
-          <NavBar />
-          <main>
-            <Routes>
-
-              <Route path='/'
-                element={<Home />}
-              />
-
-              <Route path='/:type' 
-                element={<ListContainer submitApplication={submitApplication} submitApplication2={submitApplication2} />}
-              />
-
-              <Route path='/companies/:handle'
-                element={<JobsByCompany submitApplication2={submitApplication2} />}
-              />
-
-              <Route path='/profile'
-                element={<ProfileForm />}
-              />
-
-              <Route path='/login'
-                element={<LoginForm login={login}/>}
-              />
-
-              <Route path='/signup'
-                element={<RegisterForm signup={signup}/>}
-              />
-
-              <Route path='/logout'
-                element={<LogOut setCurrentUser={setCurrentUser}/>}
-              />
-
-              <Route path='/test'
-                element={<AuthorizedComponent currentUser={currentUser}/>}
-              />
-
-            </Routes>
-          </main>
-        </BrowserRouter>
-      </CurrentUserContext.Provider>
-    </div>
-  );
+  
 }
 
 export default App;

@@ -25,7 +25,6 @@ const JobListItem = ({ id, title, salary, equity, companyHandle, submitApplicati
     const id = e.target.parentNode.getAttribute('id');
     const token = retrieveToken();
     const decodedToken = await verifyToken();
-    console.log(decodedToken.username)
     setApplied(true);
     submitApplication2(decodedToken.username, id, token);
   }
