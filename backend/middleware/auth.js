@@ -84,6 +84,7 @@ function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     let paramsUsername = req.params.username
     let authHeader = req.headers.authorization
+    console.log('authHeader', authHeader)
     const token = authHeader.replace(/^[Bb]earer /, "").trim();
     let decodedToken = jwt.verify(token, SECRET_KEY);
     let tokenUsername = decodedToken.username
