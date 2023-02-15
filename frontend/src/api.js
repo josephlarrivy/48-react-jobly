@@ -86,14 +86,18 @@ class JoblyApi {
 
   static async applyForJob(username, id, sentToken) {
     try {
-      // let url = `users/${username}/jobs/${id}`;
-      let url = 'users/test'
+      let url = `${BASE_URL}/users/${username}/jobs/${id}`;
       let data = {'a': 'b'};
       let params = {'token': sentToken};
       // console.log('params:', params)
       let method = 'post'
+      let config = {
+        headers: {
+          Authorization: `Bearer ${sentToken}`
+        }
+      }
       let headers = { Authorization: `Bearer ${sentToken}`};
-      const res = await this.request(url, method, data, params, headers);
+      const res = await axios.post(`${BASE_URL}/users/${username}/jobs/${id}`, data, headers);
       console.log(res);
       return res;
     } catch (err) {

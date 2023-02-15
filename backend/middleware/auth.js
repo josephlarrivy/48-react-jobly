@@ -72,24 +72,34 @@ function ensureAdmin(req, res, next) {
  */
 
 function ensureCorrectUserOrAdmin(req, res, next) {
-  try {
-    // authenticateJWT
-    const user = res.locals.user;
-    if (!(user && (user.isAdmin || user.username === req.params.username))) {
-      throw new UnauthorizedError();
-    }
-    return next();
-  } catch (err) {
-    return next(err);
-  }
   // try {
-  //   if ((req.params.username) !== res.locals.user) {
+  //   const user = res.locals.user;
+  //   if (!(user && (user.isAdmin || user.username === req.params.username))) {
   //     throw new UnauthorizedError();
   //   }
   //   return next();
   // } catch (err) {
   //   return next(err);
   // }
+  try {
+    let paramsUsername = req.params.username
+    let authHeader = req.headers.authorization
+    const token = authHeader.replace(/^[Bb]earer /, "").trim();
+    let decodedToken = jwt.verify(token, SECRET_KEY);
+    let tokenUsername = decodedToken.username
+
+    if (paramsUsername !== tokenUsername) {
+      throw new UnauthorizedError();
+    }
+
+    console.log(paramsUsername)
+    console.log(tokenUsername)
+
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
 }
 
 
